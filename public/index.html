@@ -45,7 +45,7 @@
                     <div class="modal-body">
                         <input type="hidden" id="url" name="url">
                         <div class="alinhamentoModal">
-                            <a href="https://twitter.com/share" class="tw-share" data-url="" onclick="linkTwitter(); return false;" ></a>
+                            <a href="https://twitter.com/share" class="tw-share twitter-share-button "  id="tw-share" ></a>
                             <a data-href=""  class="fb-share" data-layout="icon" onclick=" partilha(); return false;"></a>
                         </div>    
                     </div>
@@ -82,16 +82,19 @@
             }(document, 'script', 'twitter-wjs');
 
             function linkTwitter(){
-                $('.tw-share').attr("data-url", urlParaShare); 
+                console.log("chamou");
+                 var uri = $("#tw-share").attr("href");
+                 $('#tw-share').attr('href', uri+'?url='+urlParaShare);
 
             }
             $('#socialModal').on('show.bs.modal', function(e) {
                 urlParaShare = $(e.relatedTarget).data('href');
                 $(e.currentTarget).find('input[name="url"]').val(urlParaShare);
+                $(e.currentTarget).find('a[data-url=""]').attr('data-url', urlParaShare);   
+                $(e.currentTarget).find('.fb-share').attr('href', urlParaShare);
 
-                $(e.currentTarget).find('a').attr('href', urlParaShare);
-                $(e.currentTarget).find('.tw-share').attr('href', urlParaShare);
-                console.log($(e.currentTarget).find('.tw-share'));
+                    
+                console.log($(e.currentTarget).find('a[data-url=""]').size());
             });
             
             
